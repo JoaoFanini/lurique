@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lurique Móveis Planejados</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f5f1ea">
+<meta name="description" content="Lurique Móveis Planejados — cozinhas, closets, dormitórios e ambientes sob medida. Peça seu orçamento pelo WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f1ea; --bg-2:#ede7dd; --surface:#fbf9f5; --line:#ddd5c8;
+  --ink:#1f1b17; --ink-2:#5f574e; --ink-3:#9a9086;
+  --wood:#a8713c; --wood-2:#c8925a; --wood-d:#7c5129; --wood-glow:rgba(168,113,60,.28);
+  --dark:#191613; --plan:#3c6e91;
+  --display:"Fraunces", Georgia, "Times New Roman", serif;
+  --body:"Inter Tight", system-ui, -apple-system, Segoe UI, sans-serif;
+  --max:1200px; --gut:clamp(16px,4vw,40px);
+  --ease:cubic-bezier(.2,.7,.1,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.loading{overflow:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+::selection{background:var(--wood);color:#fff}
+
+/* ---------- loader ---------- */
+#loader{position:fixed;inset:0;z-index:100;background:var(--dark);color:#f5f1ea;display:grid;place-items:center;transition:clip-path 1.1s var(--ease)}
+#loader.out{clip-path:inset(0 0 100% 0)}
+.ld-in{display:flex;flex-direction:column;align-items:center;gap:22px}
+.ld-word{font-family:var(--display);font-weight:300;font-size:clamp(52px,11vw,140px);letter-spacing:.06em;display:flex;overflow:hidden;line-height:1.05}
+.ld-word span{display:inline-block;transform:translateY(110%);animation:ldUp .8s var(--ease) forwards}
+.ld-sub{font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:var(--wood-2);opacity:0;animation:fade .6s .9s forwards}
+.ld-slats{position:absolute;bottom:13%;left:50%;transform:translateX(-50%);display:flex;gap:6px;height:34px}
+.ld-slats i{width:7px;height:100%;background:linear-gradient(var(--wood-2),var(--wood-d));border-radius:2px;transform:scaleY(0);transform-origin:bottom;animation:slat .5s var(--ease) forwards;animation-delay:calc(var(--i)*70ms + .2s)}
+@keyframes ldUp{to{transform:none}}
+@keyframes fade{to{opacity:1}}
+@keyframes slat{to{transform:scaleY(1)}}
+
+/* ---------- progress + cursor ---------- */
+#progress{position:fixed;top:0;left:0;height:3px;width:100%;background:linear-gradient(90deg,var(--wood-d),var(--wood-2));transform:scaleX(0);transform-origin:left;z-index:60}
+#glow{position:fixed;left:0;top:0;width:520px;height:520px;border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(200,146,90,.16),transparent 60%);opacity:0;transition:opacity .4s}
+@media (hover:hover){#glow{opacity:1}}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,border-color .3s,transform .4s var(--ease);border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(245,241,234,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:var(--line)}
+nav.hide{transform:translateY(-100%)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-size:22px;letter-spacing:.04em}
+.brand-mark{width:38px;height:38px;border-radius:10px;background:var(--dark);display:flex;align-items:flex-end;justify-content:center;gap:3px;padding:8px 0}
+.brand-mark i{width:4px;background:linear-gradient(var(--wood-2),var(--wood));border-radius:1px}
+.brand small{display:block;font-family:var(--body);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-3);margin-top:-2px}
+.nav-links{display:flex;gap:32px;font-size:15px;color:var(--ink-2)}
+.nav-links a{position:relative;transition:color .2s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-4px;height:1px;width:100%;background:var(--wood);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:16px;padding:16px 26px;border-radius:999px;border:0;cursor:pointer;font-family:inherit;transition:transform .25s var(--ease),box-shadow .3s,background .3s,color .3s,border-color .3s;will-change:transform;position:relative;overflow:hidden}
+.btn-primary{background:var(--dark);color:#f5f1ea}
+.btn-primary:hover{background:var(--wood-d);box-shadow:0 14px 40px -10px var(--wood-glow)}
+.btn-primary::before{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);animation:shine 3.6s 2.8s infinite}
+@keyframes shine{0%{left:-60%}30%,100%{left:130%}}
+.btn-ghost{border:1px solid var(--line);color:var(--ink);background:transparent}
+.btn-ghost:hover{border-color:var(--wood);color:var(--wood-d)}
+.btn-sm{padding:11px 20px;font-size:14px}
+.btn svg{width:18px;height:18px;transition:transform .3s var(--ease)}
+.btn:hover svg.arr{transform:translateX(4px)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:120px 0 90px;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(60,110,145,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(60,110,145,.10) 1px,transparent 1px);background-size:40px 40px;mask-image:radial-gradient(ellipse 60% 70% at 75% 50%,#000 25%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 60% 70% at 75% 50%,#000 25%,transparent 75%)}
+.hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,70px);align-items:center;width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--wood-d);padding:8px 14px;border:1px solid rgba(168,113,60,.35);border-radius:999px;background:rgba(168,113,60,.07)}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:#3aa76d;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(58,167,109,.55)}80%,100%{box-shadow:0 0 0 10px rgba(58,167,109,0)}}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(44px,5.6vw,82px);line-height:1;letter-spacing:-.02em;margin:26px 0 24px}
+h1 em{font-style:italic;color:var(--wood)}
+h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
+h1 .w>span{display:inline-block;transform:translateY(110%)}
+body.ready h1 .w>span{animation:wordUp .9s var(--ease) forwards;animation-delay:calc(var(--i)*70ms + 150ms)}
+@keyframes wordUp{to{transform:none}}
+.hero-sub{font-size:clamp(17px,1.5vw,19px);color:var(--ink-2);max-width:480px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}
+.hero-meta{display:flex;gap:26px;margin-top:40px;font-size:14px;color:var(--ink-2);flex-wrap:wrap}
+.hero-meta b{display:block;font-family:var(--display);font-weight:400;font-size:22px;color:var(--ink)}
+.fade-in{opacity:0;transform:translateY(18px)}
+body.ready .fade-in{animation:fadeUp .9s var(--ease) forwards;animation-delay:var(--d,0s)}
+@keyframes fadeUp{to{opacity:1;transform:none}}
+
+/* hero drawing */
+.hero-art{position:relative}
+.hero-art svg{width:100%;height:auto;overflow:visible;transition:transform .6s var(--ease)}
+.hero-art .st{fill:none;stroke:var(--plan);stroke-width:1.4;stroke-dasharray:1;stroke-dashoffset:1}
+body.ready .hero-art .st{animation:draw 1.3s var(--ease) forwards;animation-delay:calc(var(--k,0)*40ms + .3s)}
+.hero-art .fl{opacity:0}
+body.ready .hero-art .fl{animation:fillIn .7s ease forwards;animation-delay:calc(var(--k,0)*45ms + 1.7s)}
+.hero-art .dim{opacity:0}
+body.ready .hero-art .dim{animation:fillIn .6s ease forwards;animation-delay:1.2s}
+body.ready .hero-art .led{animation:fillIn .6s 2.2s ease forwards,ledOn 4s 3.4s infinite}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fillIn{to{opacity:1}}
+@keyframes ledOn{0%,100%{opacity:1}50%{opacity:.65}}
+.art-tag{position:absolute;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-size:13px;color:var(--ink-2);box-shadow:0 18px 40px -20px rgba(31,27,23,.35);opacity:0;transform:translateY(12px)}
+.art-tag b{display:block;color:var(--ink);font-size:15px}
+.art-tag.t1{left:-6%;bottom:12%}
+.art-tag.t2{right:-2%;top:-4%}
+body.ready .art-tag{animation:fadeUp .8s var(--ease) forwards}
+body.ready .art-tag.t1{animation-delay:2.6s}
+body.ready .art-tag.t2{animation-delay:2.9s}
+.float{animation:floaty 6s ease-in-out infinite}
+@keyframes floaty{50%{transform:translateY(-8px)}}
+
+.scroll-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);z-index:2}
+.scroll-hint i{width:1px;height:44px;background:linear-gradient(var(--wood),transparent);animation:drop 1.8s infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- marquee ---------- */
+.marquee{overflow:hidden;background:var(--dark);color:#f5f1ea;padding:24px 0;position:relative;z-index:1}
+.marquee-track{display:flex;width:max-content;animation:marq 30s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-track span{font-family:var(--display);font-weight:300;font-size:clamp(28px,4vw,46px);display:flex;align-items:center;gap:34px;padding-right:34px;white-space:nowrap}
+.marquee-track span.o{font-style:italic;color:var(--wood-2)}
+.marquee-track .sl{display:flex;gap:3px;height:26px}
+.marquee-track .sl i{width:4px;height:100%;background:var(--wood);border-radius:1px}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+section{position:relative;z-index:1}
+.sec{padding:clamp(90px,12vw,150px) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:56px;flex-wrap:wrap}
+.label{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--wood-d);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.label::before{content:"";width:24px;height:1px;background:var(--wood)}
+h2{font-family:var(--display);font-weight:300;font-size:clamp(38px,5.2vw,68px);line-height:1.02;letter-spacing:-.015em;max-width:700px}
+h2 em{font-style:italic;color:var(--wood)}
+.sec-head p{color:var(--ink-2);max-width:380px}
+
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+.reveal.in{opacity:1;transform:none}
+.reveal-x{opacity:0;transform:translateX(-40px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+.reveal-x.in{opacity:1;transform:none}
+
+/* ambientes */
+.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:30px 28px 28px;overflow:hidden;transition:border-color .4s,transform .45s var(--ease),box-shadow .45s;min-height:320px;display:flex;flex-direction:column;cursor:pointer}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),rgba(200,146,90,.16),transparent 50%);opacity:0;transition:opacity .4s}
+.card:hover{border-color:rgba(168,113,60,.5);transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(31,27,23,.35)}
+.card:hover::before{opacity:1}
+.card-top{display:flex;justify-content:space-between;align-items:center;position:relative}
+.card-num{font-family:var(--display);font-size:15px;color:var(--ink-3)}
+.card-go{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:background .3s,border-color .3s,transform .4s var(--ease)}
+.card-go svg{width:16px;height:16px;stroke:var(--ink);fill:none;stroke-width:2}
+.card:hover .card-go{background:var(--dark);border-color:var(--dark);transform:rotate(-45deg)}
+.card:hover .card-go svg{stroke:#fff}
+.card-ill{height:120px;margin:22px 0 auto;position:relative}
+.card-ill svg{height:100%;width:auto;overflow:visible}
+.card-ill .p{fill:none;stroke:var(--ink-2);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .4s}
+.card-ill .w{fill:rgba(168,113,60,.18);stroke:var(--wood);stroke-width:1.6;transition:fill .4s}
+.card:hover .card-ill .p{stroke:var(--ink)}
+.card:hover .card-ill .w{fill:rgba(168,113,60,.4)}
+.card h3{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.05;margin:26px 0 8px;position:relative}
+.card p{color:var(--ink-2);font-size:15.5px;position:relative}
+
+/* statement */
+.statement{padding:clamp(90px,14vw,180px) 0;border-top:1px solid var(--line);background:var(--bg-2)}
+.statement p{font-family:var(--display);font-weight:300;font-size:clamp(40px,6.6vw,96px);line-height:1.04;letter-spacing:-.02em;max-width:1100px}
+.statement .sw{color:#cfc6b8;transition:color .35s ease}
+.statement .sw.lit{color:var(--ink)}
+.statement .sw.lit.g{color:var(--wood);font-style:italic}
+.statement small{display:block;margin-top:28px;font-family:var(--body);font-size:15px;color:var(--ink-3)}
+
+/* compare */
+.compare-wrap{display:grid;grid-template-columns:1fr 1.25fr;gap:clamp(40px,6vw,90px);align-items:center}
+.compare-wrap > div > p{color:var(--ink-2);margin-top:22px;max-width:420px}
+.compare{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:var(--surface);aspect-ratio:600/470;user-select:none;touch-action:pan-y;cursor:ew-resize}
+.compare .layer{position:absolute;inset:0;padding:6%}
+.compare .layer svg{width:100%;height:100%}
+.compare .plan{background:#eef3f6;background-image:linear-gradient(rgba(60,110,145,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(60,110,145,.12) 1px,transparent 1px);background-size:24px 24px;clip-path:inset(0 calc(100% - var(--pos,50%)) 0 0)}
+.compare .handle{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:var(--dark);transform:translateX(-50%);pointer-events:none}
+.compare .handle i{position:absolute;top:50%;left:50%;width:46px;height:46px;border-radius:50%;background:var(--dark);transform:translate(-50%,-50%);display:grid;place-items:center;box-shadow:0 10px 30px -8px rgba(0,0,0,.4)}
+.compare .handle svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2}
+.compare .tag{position:absolute;top:16px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:7px 12px;border-radius:999px;pointer-events:none}
+.compare .tag.l{left:16px;background:var(--plan);color:#fff}
+.compare .tag.r{right:16px;background:var(--dark);color:#f5f1ea}
+
+/* steps */
+.method{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(40px,7vw,100px);align-items:start}
+.method-sticky{position:sticky;top:120px}
+.method-sticky p{color:var(--ink-2);margin-top:24px;max-width:400px}
+.steps{position:relative;padding-left:46px}
+.steps-line{position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:var(--line);border-radius:2px;overflow:hidden}
+.steps-line i{position:absolute;inset:0;background:linear-gradient(var(--wood-2),var(--wood-d));transform:scaleY(0);transform-origin:top}
+.step{position:relative;padding:8px 0 60px}
+.step:last-child{padding-bottom:8px}
+.step-dot{position:absolute;left:-46px;top:12px;width:24px;height:24px;border-radius:50%;background:var(--bg);border:2px solid var(--line);transition:border-color .4s,box-shadow .4s,background .4s}
+.step.on .step-dot{border-color:var(--wood);background:var(--wood);box-shadow:0 0 0 6px rgba(168,113,60,.16)}
+.step-k{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);transition:color .4s}
+.step.on .step-k{color:var(--wood-d)}
+.step h3{font-family:var(--display);font-weight:300;font-size:clamp(30px,3.6vw,46px);line-height:1.05;margin:8px 0 10px;color:var(--ink-3);transition:color .4s}
+.step.on h3{color:var(--ink)}
+.step p{color:var(--ink-2);max-width:460px}
+
+/* why */
+.why{background:var(--dark);color:#f5f1ea;border-radius:clamp(24px,4vw,40px);margin:0 var(--gut);padding:clamp(70px,9vw,120px) 0;overflow:hidden;position:relative}
+.why::after{content:"";position:absolute;right:-60px;top:-40px;bottom:-40px;width:340px;background:repeating-linear-gradient(90deg,rgba(200,146,90,.16) 0 14px,transparent 14px 26px);transform:skewX(-8deg);pointer-events:none}
+.why .label{color:var(--wood-2)}
+.why h2{color:#f5f1ea}
+.why h2 em{color:var(--wood-2)}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:20px;overflow:hidden;margin-top:56px;position:relative;z-index:1}
+.why-item{background:var(--dark);padding:32px 26px;transition:background .4s}
+.why-item:hover{background:#24201c}
+.why-item svg{width:30px;height:30px;stroke:var(--wood-2);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .5s var(--ease)}
+.why-item:hover svg{transform:translateY(-4px) rotate(-6deg)}
+.why-item h4{font-family:var(--display);font-weight:400;font-size:23px;margin:22px 0 8px}
+.why-item p{color:#b3aa9f;font-size:15px}
+
+/* cta form */
+.cta{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,90px);align-items:start}
+.cta > div > p{color:var(--ink-2);margin-top:22px;max-width:420px}
+.info{margin-top:34px;display:grid;gap:14px;font-size:15px}
+.info div{display:flex;gap:14px;align-items:center;color:var(--ink-2)}
+.info svg{width:20px;height:20px;stroke:var(--wood);fill:none;stroke-width:1.8;flex:none}
+.info b{color:var(--ink);font-weight:600}
+form{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:clamp(24px,4vw,40px);box-shadow:0 40px 80px -50px rgba(31,27,23,.4)}
+form h3{font-family:var(--display);font-weight:400;font-size:28px;margin-bottom:6px}
+form > p{color:var(--ink-3);font-size:14px;margin-bottom:22px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{border:1px solid var(--line);background:transparent;border-radius:999px;padding:9px 15px;font:500 14px var(--body);color:var(--ink-2);cursor:pointer;transition:all .25s var(--ease)}
+.chip:hover{border-color:var(--wood);color:var(--ink)}
+.chip.on{background:var(--dark);border-color:var(--dark);color:#fff;transform:scale(1.04)}
+.field{position:relative;margin-bottom:14px}
+.field input,.field textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:14px;padding:22px 16px 9px;font:16px var(--body);color:var(--ink);outline:none;transition:border-color .25s,box-shadow .25s;resize:none}
+.field textarea{height:96px}
+.field label{position:absolute;left:17px;top:16px;font-size:15px;color:var(--ink-3);pointer-events:none;transition:all .2s var(--ease)}
+.field input:focus,.field textarea:focus{border-color:var(--wood);box-shadow:0 0 0 4px rgba(168,113,60,.12)}
+.field input:focus+label,.field input:not(:placeholder-shown)+label,.field textarea:focus+label,.field textarea:not(:placeholder-shown)+label{top:7px;font-size:11px;letter-spacing:.06em;color:var(--wood-d)}
+form .btn{width:100%;justify-content:center;margin-top:6px;background:#1f9d55}
+form .btn:hover{background:#178246;box-shadow:0 14px 40px -12px rgba(31,157,85,.6)}
+
+footer{border-top:1px solid var(--line);padding:40px 0;margin-top:clamp(70px,9vw,110px);font-size:14px;color:var(--ink-3)}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+
+/* whatsapp float */
+.wa{position:fixed;right:20px;bottom:20px;z-index:55;width:58px;height:58px;border-radius:50%;background:#1f9d55;display:grid;place-items:center;box-shadow:0 14px 34px -10px rgba(31,157,85,.7);transform:scale(0);transition:transform .5s var(--ease)}
+body.ready .wa{transform:scale(1);transition-delay:2.4s}
+.wa:hover{transform:scale(1.08)!important}
+.wa svg{width:28px;height:28px;fill:#fff}
+.wa::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #1f9d55;animation:waPing 2.4s 3s infinite}
+@keyframes waPing{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+
+/* responsive */
+@media (max-width:960px){
+  .nav-links{display:none}
+  .hero-in,.compare-wrap,.method,.cta{grid-template-columns:1fr}
+  .hero-art{max-width:560px;margin:0 auto;width:100%}
+  .rooms{grid-template-columns:1fr 1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .method-sticky{position:static}
+  .scroll-hint{display:none}
+}
+@media (max-width:620px){
+  .rooms,.why-grid{grid-template-columns:1fr}
+  .card{min-height:auto}
+  .art-tag.t1{left:0}.art-tag.t2{right:0}
+  .art-tag{padding:9px 12px;font-size:12px}
+  .art-tag b{font-size:13px}
+  .brand small{display:none}
+}
+
+/* ---------- marca d'água F9 Coding ---------- */
+#f9wm{position:fixed;inset:-50%;z-index:90;pointer-events:none;transform:rotate(-24deg);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='170'%3E%3Ctext x='0' y='60' font-family='Arial,sans-serif' font-size='22' font-weight='700' letter-spacing='3' fill='%231f1b17' fill-opacity='.10'%3EF9 CODING · PRÉVIA%3C/text%3E%3Ctext x='180' y='145' font-family='Arial,sans-serif' font-size='22' font-weight='700' letter-spacing='3' fill='%23a8713c' fill-opacity='.12'%3EF9 CODING · PRÉVIA%3C/text%3E%3C/svg%3E");
+  background-repeat:repeat}
+#f9bar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:91;display:flex;align-items:center;gap:10px;padding:9px 16px 9px 10px;border-radius:999px;background:rgba(25,22,19,.92);color:#f5f1ea;font:500 12.5px/1.2 var(--body);box-shadow:0 12px 30px -10px rgba(0,0,0,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);white-space:nowrap;pointer-events:none}
+#f9bar b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#1f6b4f;color:#fff;font-size:11px;font-weight:700;letter-spacing:.02em}
+#f9bar span{opacity:.75}
+
+/* ---------- mobile ---------- */
+@media (hover:none){
+  .card:hover,.why-item:hover{transform:none;box-shadow:none}
+  .card:active{transform:scale(.98)}
+}
+@media (max-width:620px){
+  body{font-size:16px}
+  .sec{padding:72px 0}
+  .nav-in{height:64px}
+  .btn-sm{padding:10px 16px;font-size:13px}
+  .hero{padding:96px 0 80px;min-height:auto}
+  .eyebrow{font-size:10.5px;letter-spacing:.14em}
+  h1{margin:20px 0 18px}
+  .hero-cta{flex-direction:column;gap:10px;margin-top:28px}
+  .hero-cta .btn{width:100%;justify-content:center}
+  .hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:30px;font-size:12px}
+  .hero-meta b{font-size:17px}
+  .hero-art{margin-top:18px}
+  .art-tag.t2{top:-14px}
+  .art-tag.t1{bottom:4%}
+  .sec-head{margin-bottom:34px}
+  .card{padding:24px 22px}
+  .card-ill{height:96px;margin-top:16px}
+  .card h3{font-size:26px;margin-top:20px}
+  .statement{padding:80px 0}
+  .statement p{font-size:clamp(32px,9vw,44px)}
+  .compare .tag{top:10px;font-size:10px;padding:5px 9px}
+  .compare .tag.l{left:10px}.compare .tag.r{right:10px}
+  .compare .handle i{width:40px;height:40px}
+  .steps{padding-left:38px}
+  .step-dot{left:-38px;width:20px;height:20px}
+  .steps-line{left:9px}
+  .step{padding-bottom:42px}
+  .why{margin:0 10px;padding:64px 0}
+  .why::after{width:160px;opacity:.6}
+  .why-grid{margin-top:34px}
+  .why-item{padding:24px 22px}
+  form{padding:22px 18px}
+  .chip{padding:8px 13px;font-size:13.5px}
+  .foot{flex-direction:column;align-items:flex-start}
+  footer{padding-bottom:110px}
+  .wa{width:52px;height:52px;right:14px;bottom:calc(66px + env(safe-area-inset-bottom))}
+  #f9bar{bottom:calc(12px + env(safe-area-inset-bottom));font-size:11.5px;padding:8px 14px 8px 8px}
+  #glow{display:none}
+}
+@media (min-width:621px){ .wa{bottom:76px} footer{padding-bottom:90px} }
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+  .reveal,.reveal-x,.fade-in{opacity:1;transform:none}
+}
+</style>
+</head>
+<body class="loading">
+
+<div id="f9wm" aria-hidden="true"></div>
+<div id="f9bar"><b>F9</b>Prévia criada por F9 Coding <span>· uso não autorizado</span></div>
+
+<div id="loader">
+  <div class="ld-in">
+    <div class="ld-word" id="ldWord">LURIQUE</div>
+    <div class="ld-sub">Móveis planejados</div>
+  </div>
+  <div class="ld-slats" id="ldSlats"></div>
+</div>
+
+<div id="progress"></div>
+<div id="glow"></div>
+
+<nav id="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="brand">
+      <span class="brand-mark"><i style="height:60%"></i><i style="height:100%"></i><i style="height:80%"></i><i style="height:100%"></i></span>
+      <span>Lurique<small>Móveis planejados</small></span>
+    </a>
+    <div class="nav-links">
+      <a href="#ambientes">Ambientes</a>
+      <a href="#projeto">Do projeto à casa</a>
+      <a href="#processo">Como funciona</a>
+      <a href="#orcamento">Orçamento</a>
+    </div>
+    <a class="btn btn-primary btn-sm magnetic" href="#orcamento">Pedir orçamento</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="wrap hero-in">
+    <div>
+      <span class="eyebrow fade-in" style="--d:.1s"><span class="dot"></span>Atendimento das 8h às 18h</span>
+      <h1 id="heroTitle">Móveis planejados no <em>centímetro</em> da sua casa.</h1>
+      <p class="hero-sub fade-in" style="--d:.7s">Cozinhas, closets, dormitórios e salas desenhados para o seu espaço — do projeto à montagem, sem sobra e sem improviso.</p>
+      <div class="hero-cta fade-in" style="--d:.85s">
+        <a class="btn btn-primary magnetic" href="#orcamento">Quero um orçamento <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost magnetic" href="#ambientes">Ver ambientes</a>
+      </div>
+      <div class="hero-meta fade-in" style="--d:1s">
+        <div><b>Sob medida</b>para qualquer parede</div>
+        <div><b>Projeto</b>antes de fabricar</div>
+        <div><b>Montagem</b>na sua casa</div>
+      </div>
+    </div>
+    <div class="hero-art" id="heroArt">
+      <div class="float" id="heroSvg"></div>
+      <div class="art-tag t1"><b>Cozinha planejada</b>Painel ripado + LED</div>
+      <div class="art-tag t2"><b>2,40 × 2,60 m</b>medido no local</div>
+    </div>
+  </div>
+  <div class="scroll-hint"><i></i>Role</div>
+</header>
+
+<div class="marquee"><div class="marquee-track" id="marq"></div></div>
+
+<section class="sec" id="ambientes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="label reveal">Ambientes</div>
+        <h2 class="reveal" style="--d:.08s">Um projeto para <em>cada canto</em> da casa.</h2>
+      </div>
+      <p class="reveal" style="--d:.16s">Toque no ambiente que você quer planejar e já fale com a gente pelo WhatsApp.</p>
+    </div>
+    <div class="rooms" id="rooms"></div>
+  </div>
+</section>
+
+<section class="statement">
+  <div class="wrap">
+    <p id="statement">Móvel pronto se adapta à loja. <span data-g>Móvel planejado</span> se adapta à sua rotina, ao seu espaço e ao seu jeito de viver.</p>
+    <small class="reveal">— Lurique Móveis Planejados</small>
+  </div>
+</section>
+
+<section class="sec" id="projeto">
+  <div class="wrap compare-wrap">
+    <div>
+      <div class="label reveal">Do projeto à casa</div>
+      <h2 class="reveal" style="--d:.08s">Você vê o móvel <em>antes</em> dele existir.</h2>
+      <p class="reveal" style="--d:.16s">Arraste para comparar. Tudo começa com a medição e o desenho do ambiente — e só vai para a produção depois que você aprovar cada detalhe.</p>
+      <div class="hero-cta reveal" style="--d:.24s"><a class="btn btn-ghost magnetic" href="#orcamento">Quero meu projeto</a></div>
+    </div>
+    <div class="compare reveal" id="compare" style="--d:.1s">
+      <div class="layer real" id="cmpReal"></div>
+      <div class="layer plan" id="cmpPlan"></div>
+      <span class="tag l">Projeto</span><span class="tag r">Pronto</span>
+      <div class="handle"><i><svg viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></i></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="processo" style="padding-top:0">
+  <div class="wrap method">
+    <div class="method-sticky">
+      <div class="label reveal">Como funciona</div>
+      <h2 class="reveal" style="--d:.08s">Do primeiro contato à <em>chave na mão</em>.</h2>
+      <p class="reveal" style="--d:.16s">Um caminho claro, sem surpresa no meio. Você sabe em que etapa o seu móvel está do começo ao fim.</p>
+    </div>
+    <div class="steps" id="steps">
+      <div class="steps-line"><i id="stepsFill"></i></div>
+      <div class="step"><span class="step-dot"></span><div class="step-k">Etapa 01</div><h3>Conversa e medição</h3><p>Você conta o que precisa e a gente vai até o ambiente medir cada parede, tomada e detalhe.</p></div>
+      <div class="step"><span class="step-dot"></span><div class="step-k">Etapa 02</div><h3>Projeto do ambiente</h3><p>Desenhamos os móveis com cores, acabamentos e divisões internas pensados para o seu uso.</p></div>
+      <div class="step"><span class="step-dot"></span><div class="step-k">Etapa 03</div><h3>Ajustes e aprovação</h3><p>Você muda o que quiser até ficar do seu jeito. Só seguimos com o seu “ok”.</p></div>
+      <div class="step"><span class="step-dot"></span><div class="step-k">Etapa 04</div><h3>Produção</h3><p>Os móveis são produzidos sob medida, com o acabamento escolhido no projeto.</p></div>
+      <div class="step"><span class="step-dot"></span><div class="step-k">Etapa 05</div><h3>Montagem e entrega</h3><p>Montagem no local, ambiente limpo e tudo funcionando — é só começar a usar.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <div class="label reveal">Por que a Lurique</div>
+    <h2 class="reveal" style="--d:.08s">Feito para durar e <em>pensado para você</em>.</h2>
+    <div class="why-grid">
+      <div class="why-item reveal" style="--d:.05s"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg><h4>Medida exata</h4><p>Aproveitamento total do espaço, até nos cantos difíceis.</p></div>
+      <div class="why-item reveal" style="--d:.12s"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg><h4>Acabamento</h4><p>Cores, texturas e ferragens escolhidas com você.</p></div>
+      <div class="why-item reveal" style="--d:.19s"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg><h4>Prazo combinado</h4><p>Você sabe quando cada etapa acontece.</p></div>
+      <div class="why-item reveal" style="--d:.26s"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-2.4 2.6-2.6z"/></svg><h4>Montagem</h4><p>Instalação no local, com cuidado com a sua casa.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="orcamento">
+  <div class="wrap cta">
+    <div>
+      <div class="label reveal">Orçamento</div>
+      <h2 class="reveal" style="--d:.08s">Vamos planejar o seu <em>ambiente</em>?</h2>
+      <p class="reveal" style="--d:.16s">Preencha rapidinho e a mensagem já vai pronta para o nosso WhatsApp. Sem compromisso.</p>
+      <div class="info">
+        <div class="reveal-x" style="--d:.1s"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span><b>(34) 9133-3333</b> · WhatsApp</span></div>
+        <div class="reveal-x" style="--d:.18s"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><b>08h às 18h</b> · horário de atendimento</span></div>
+        <div class="reveal-x" style="--d:.26s"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span><b>Uberlândia e região</b></span></div>
+      </div>
+    </div>
+    <form id="form" class="reveal" style="--d:.1s" novalidate>
+      <h3>Pedir orçamento</h3>
+      <p>Qual ambiente você quer planejar?</p>
+      <div class="chips" id="chips"></div>
+      <div class="field"><input id="fNome" placeholder=" " autocomplete="name"><label for="fNome">Seu nome</label></div>
+      <div class="field"><input id="fBairro" placeholder=" "><label for="fBairro">Bairro / cidade</label></div>
+      <div class="field"><textarea id="fMsg" placeholder=" "></textarea><label for="fMsg">Conte um pouco (opcional)</label></div>
+      <button class="btn magnetic" type="submit"><svg viewBox="0 0 24 24" style="fill:#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.8-1.1-4.6-4-4.8-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.7 1.2 1.5 1.9 1 .9 1.9 1.2 2.1 1.3.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.6-.1 1.3z"/></svg>Enviar pelo WhatsApp</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <a href="#top" class="brand"><span class="brand-mark"><i style="height:60%"></i><i style="height:100%"></i><i style="height:80%"></i><i style="height:100%"></i></span><span>Lurique</span></a>
+    <span>© <span id="yr"></span> Lurique Móveis Planejados · Todos os direitos reservados</span>
+  </div>
+</footer>
+
+<a class="wa" id="waFloat" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.8-1.1-4.6-4-4.8-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.3c-.1.2-.3.3-.1.6.2.3.7 1.2 1.5 1.9 1 .9 1.9 1.2 2.1 1.3.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.1.1.6-.1 1.3z"/></svg></a>
+
+<script>
+(function(){
+
+  /* proteção da prévia — F9 Coding */
+  (function(){
+    var WM='<div id="f9wm" aria-hidden="true"></div>', BAR='<div id="f9bar"><b>F9</b>Prévia criada por F9 Coding <span>· uso não autorizado</span></div>';
+    function ok(el){ if(!el||!document.body.contains(el)) return false; var c=getComputedStyle(el); return c.display!=='none'&&c.visibility!=='hidden'&&+c.opacity>0.5; }
+    function fix(){
+      var w=document.getElementById('f9wm'), b=document.getElementById('f9bar');
+      if(!ok(w)){ if(w) w.remove(); document.body.insertAdjacentHTML('afterbegin',WM); }
+      if(!ok(b)){ if(b) b.remove(); document.body.insertAdjacentHTML('afterbegin',BAR); }
+    }
+    new MutationObserver(fix).observe(document.body,{childList:true,attributes:true,subtree:false});
+    new MutationObserver(fix).observe(document.head,{childList:true});
+    setInterval(fix,1500);
+  })();
+
+  var WA='553491333333';
+  function wa(t){return 'https://wa.me/'+WA+'?text='+encodeURIComponent(t);}
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  document.getElementById('waFloat').href=wa('Olá! Vim pelo site e quero um orçamento de móveis planejados.');
+
+  /* loader letters + slats */
+  var lw=document.getElementById('ldWord'), txt=lw.textContent; lw.innerHTML='';
+  txt.split('').forEach(function(c,i){var s=document.createElement('span');s.textContent=c;s.style.animationDelay=(i*60+100)+'ms';lw.appendChild(s);});
+  var sl=''; for(var i=0;i<9;i++) sl+='<i style="--i:'+i+'"></i>'; document.getElementById('ldSlats').innerHTML=sl;
+
+  /* ---------- kitchen drawing (mode: hero | plan | real) ---------- */
+  function kitchen(mode){
+    var P=mode!=='real', H=mode==='hero', k=0;
+    function st(tag,a){ /* stroke element */
+      var cls=H?'st':''; var extra=H?' pathLength="1" style="--k:'+(k++)+'"':'';
+      var s=P?'fill="none" stroke="#3c6e91" stroke-width="1.4"':'';
+      return '<'+tag+' class="'+cls+'" '+a+' '+s+extra+'/>';
+    }
+    function fl(tag,a,i){ return '<'+tag+(H?' class="fl" style="--k:'+(i||0)+'"':'')+' '+a+'/>'; }
+    var o='<svg viewBox="0 0 600 470" xmlns="http://www.w3.org/2000/svg"><defs>'+
+      '<linearGradient id="wd'+mode+'" x1="0" x2="1"><stop offset="0" stop-color="#b47c45"/><stop offset=".5" stop-color="#c8925a"/><stop offset="1" stop-color="#9c6635"/></linearGradient>'+
+      '<linearGradient id="led'+mode+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe2b0" stop-opacity=".9"/><stop offset="1" stop-color="#ffe2b0" stop-opacity="0"/></linearGradient></defs>';
+    /* fills (real + hero) */
+    if(!P||H){
+      o+=fl('rect','x="20" y="440" width="560" height="10" fill="#d8cfc2"',0);
+      o+=fl('rect','x="170" y="170" width="250" height="130" fill="#e6dfd4"',1);
+      o+=fl('rect','x="170" y="172" width="250" height="70" fill="url(#led'+mode+')"',2).replace('class="fl"','class="fl led"');
+      o+=fl('rect','x="40" y="60" width="110" height="380" rx="2" fill="#f7f5f1" stroke="#d8d1c6"',3);
+      o+=fl('rect','x="170" y="60" width="250" height="110" rx="2" fill="#f7f5f1" stroke="#d8d1c6"',4);
+      o+=fl('rect','x="170" y="314" width="250" height="126" rx="2" fill="#f7f5f1" stroke="#d8d1c6"',5);
+      o+=fl('rect','x="164" y="298" width="262" height="16" rx="2" fill="#2b2622"',6);
+      o+=fl('rect','x="440" y="60" width="120" height="380" fill="url(#wd'+mode+')"',7);
+      var sl='';for(var x=452;x<560;x+=12) sl+='<line x1="'+x+'" y1="60" x2="'+x+'" y2="440" stroke="#7c5129" stroke-opacity=".55" stroke-width="2"/>';
+      o+=H?'<g class="fl" style="--k:8">'+sl+'</g>':sl;
+      var det='<line x1="95" y1="62" x2="95" y2="438" stroke="#d8d1c6"/><line x1="253" y1="62" x2="253" y2="168" stroke="#d8d1c6"/><line x1="336" y1="62" x2="336" y2="168" stroke="#d8d1c6"/>'+
+        '<line x1="172" y1="356" x2="280" y2="356" stroke="#d8d1c6"/><line x1="172" y1="398" x2="280" y2="398" stroke="#d8d1c6"/><line x1="280" y1="316" x2="280" y2="438" stroke="#d8d1c6"/><line x1="350" y1="316" x2="350" y2="438" stroke="#d8d1c6"/>'+
+        '<g stroke="#9c6635" stroke-width="3" stroke-linecap="round"><line x1="86" y1="230" x2="86" y2="280"/><line x1="104" y1="230" x2="104" y2="280"/><line x1="200" y1="160" x2="226" y2="160"/><line x1="282" y1="160" x2="308" y2="160"/><line x1="364" y1="160" x2="392" y2="160"/>'+
+        '<line x1="210" y1="335" x2="240" y2="335"/><line x1="210" y1="377" x2="240" y2="377"/><line x1="210" y1="419" x2="240" y2="419"/><line x1="300" y1="326" x2="330" y2="326"/><line x1="370" y1="326" x2="400" y2="326"/></g>'+
+        '<g fill="#cfc6b8"><rect x="210" y="232" width="34" height="46" rx="4"/><rect x="250" y="250" width="26" height="28" rx="4"/></g><path d="M330 278 q12 -26 24 0z" fill="#7b8b6a"/><rect x="336" y="276" width="12" height="22" fill="#a8713c"/>';
+      o+=H?'<g class="fl" style="--k:9">'+det+'</g>':det;
+    }
+    /* blueprint strokes (plan + hero) */
+    if(P){
+      o+=st('line','x1="20" y1="440" x2="580" y2="440"');
+      o+=st('rect','x="40" y="60" width="110" height="380"');
+      o+=st('line','x1="95" y1="60" x2="95" y2="440"');
+      o+=st('rect','x="170" y="60" width="250" height="110"');
+      o+=st('line','x1="253" y1="60" x2="253" y2="170"');
+      o+=st('line','x1="336" y1="60" x2="336" y2="170"');
+      o+=st('rect','x="164" y="298" width="262" height="16"');
+      o+=st('rect','x="170" y="314" width="250" height="126"');
+      o+=st('line','x1="170" y1="356" x2="280" y2="356"');
+      o+=st('line','x1="170" y1="398" x2="280" y2="398"');
+      o+=st('line','x1="280" y1="314" x2="280" y2="440"');
+      o+=st('line','x1="350" y1="314" x2="350" y2="440"');
+      o+=st('rect','x="440" y="60" width="120" height="380"');
+      if(!H){ for(var x2=452;x2<560;x2+=12) o+=st('line','x1="'+x2+'" y1="60" x2="'+x2+'" y2="440" stroke-opacity=".45"'); }
+      var dim='<g '+(H?'class="dim" ':'')+'stroke="#3c6e91" stroke-width="1" fill="#3c6e91" font-family="Inter Tight, sans-serif" font-size="13" font-weight="600">'+
+        '<line x1="40" y1="32" x2="560" y2="32"/><line x1="40" y1="24" x2="40" y2="40"/><line x1="560" y1="24" x2="560" y2="40"/><text x="300" y="24" text-anchor="middle" stroke="none">2,40 m</text>'+
+        '<line x1="584" y1="60" x2="584" y2="440"/><line x1="576" y1="60" x2="592" y2="60"/><line x1="576" y1="440" x2="592" y2="440"/><text x="0" y="0" stroke="none" text-anchor="middle" transform="translate(600 250) rotate(90)">2,60 m</text>'+
+        (H?'':'<text x="295" y="240" text-anchor="middle" stroke="none" font-weight="500" fill-opacity=".7">bancada 0,90 m</text><text x="500" y="460" text-anchor="middle" stroke="none" font-weight="500" fill-opacity=".7">painel ripado</text>')+
+        '</g>';
+      o+=dim;
+    }
+    o+='<text x="300" y="250" text-anchor="middle" font-family="Arial,sans-serif" font-size="34" font-weight="700" letter-spacing="6" fill="#1f1b17" fill-opacity=".07" transform="rotate(-18 300 250)">F9 CODING · PRÉVIA</text>';
+    return o+'</svg>';
+  }
+  document.getElementById('heroSvg').innerHTML=kitchen('hero');
+  document.getElementById('cmpReal').innerHTML=kitchen('real');
+  document.getElementById('cmpPlan').innerHTML=kitchen('plan');
+
+  /* marquee */
+  var slat='<em class="sl"><i></i><i></i><i></i></em>';
+  var words=['Cozinhas','Closets','Dormitórios','Home theater','Banheiros','Escritórios','Lavanderias'];
+  var mh=''; for(var r=0;r<2;r++) words.forEach(function(w,i){mh+='<span class="'+(i%2?'o':'')+'">'+w+slat+'</span>';});
+  document.getElementById('marq').innerHTML=mh;
+
+  /* ambientes */
+  var rooms=[
+    ['Cozinha','Armários, ilha e bancada no tamanho exato da sua parede.','<rect class="p" x="4" y="8" width="150" height="40" rx="3"/><rect class="w" x="4" y="78" width="150" height="10" rx="2"/><rect class="p" x="4" y="88" width="150" height="40" rx="3"/><path class="p" d="M54 88v40M104 88v40M54 8v40M104 8v40"/><path class="p" d="M40 64h20v14H40z"/>'],
+    ['Closet','Cabideiros, gavetas e nichos organizados do seu jeito.','<rect class="p" x="4" y="4" width="150" height="124" rx="3"/><path class="p" d="M54 4v124M104 4v124M8 36h42M58 70h42M108 30h42M108 62h42"/><rect class="w" x="58" y="96" width="42" height="28" rx="2"/><path class="p" d="M14 36v22M24 36v28M34 36v18M44 36v24"/>'],
+    ['Dormitório','Guarda-roupa, cabeceira e painel de TV integrados.','<rect class="w" x="20" y="10" width="118" height="44" rx="3"/><rect class="p" x="10" y="54" width="138" height="56" rx="6"/><path class="p" d="M10 80h138M10 110v14M148 110v14"/><rect class="p" x="26" y="60" width="44" height="16" rx="4"/><rect class="p" x="88" y="60" width="44" height="16" rx="4"/>'],
+    ['Home e sala','Painel ripado, rack suspenso e iluminação embutida.','<rect class="w" x="40" y="4" width="78" height="124"/><path class="p" d="M52 4v124M64 4v124M76 4v124M88 4v124M100 4v124"/><rect class="p" x="20" y="34" width="118" height="54" rx="3" style="fill:var(--surface)"/><rect class="p" x="4" y="104" width="150" height="16" rx="3"/>'],
+    ['Banheiro','Gabinetes resistentes à umidade e espelheiras sob medida.','<rect class="p" x="40" y="6" width="78" height="56" rx="28"/><rect class="w" x="14" y="76" width="130" height="10" rx="2"/><rect class="p" x="18" y="86" width="122" height="40" rx="3"/><path class="p" d="M79 86v40M70 70a9 9 0 0 1 18 0"/>'],
+    ['Escritório','Mesa, prateleiras e gaveteiros para trabalhar em casa.','<rect class="w" x="4" y="64" width="150" height="10" rx="2"/><path class="p" d="M10 74v54M148 74v54"/><rect class="p" x="104" y="74" width="40" height="54" rx="3"/><path class="p" d="M104 92h40M104 110h40"/><path class="p" d="M10 10h80M10 34h80"/><rect class="p" x="30" y="26" width="34" height="38" rx="3"/>']
+  ];
+  var arr='<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  document.getElementById('rooms').innerHTML=rooms.map(function(r,i){
+    return '<a class="card reveal" style="--d:'+(i%3*.08)+'s" target="_blank" rel="noopener" href="'+wa('Olá! Vim pelo site e quero um orçamento de '+r[0].toLowerCase()+' planejado(a).')+'">'+
+      '<div class="card-top"><span class="card-num">0'+(i+1)+'</span><span class="card-go">'+arr+'</span></div>'+
+      '<div class="card-ill"><svg viewBox="0 0 158 132">'+r[2]+'</svg></div><h3>'+r[0]+'</h3><p>'+r[1]+'</p></a>';
+  }).join('');
+
+  /* chips */
+  var amb=['Cozinha','Closet','Dormitório','Sala / home','Banheiro','Escritório','Outro'], sel='Cozinha';
+  var ch=document.getElementById('chips');
+  ch.innerHTML=amb.map(function(a){return '<button type="button" class="chip'+(a===sel?' on':'')+'">'+a+'</button>';}).join('');
+  ch.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;ch.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});b.classList.add('on');sel=b.textContent;});
+  document.getElementById('form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=document.getElementById('fNome').value.trim(), b=document.getElementById('fBairro').value.trim(), m=document.getElementById('fMsg').value.trim();
+    var t='Olá! Vim pelo site da Lurique.'+(n?' Meu nome é '+n+'.':'')+' Quero um orçamento de: '+sel+'.'+(b?' Local: '+b+'.':'')+(m?' '+m:'');
+    window.open(wa(t),'_blank');
+  });
+
+  /* hero title split */
+  var h1=document.getElementById('heroTitle'), idx=0;
+  (function split(node){
+    Array.prototype.slice.call(node.childNodes).forEach(function(n){
+      if(n.nodeType===3){
+        var frag=document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(function(t){
+          if(!t)return;
+          if(/^\s+$/.test(t)){frag.appendChild(document.createTextNode(' '));return;}
+          var w=document.createElement('span');w.className='w';var s=document.createElement('span');s.textContent=t;s.style.setProperty('--i',idx++);w.appendChild(s);frag.appendChild(w);
+        });
+        n.parentNode.replaceChild(frag,n);
+      } else split(n);
+    });
+  })(h1);
+
+  /* statement words */
+  var st=document.getElementById('statement'), out='';
+  st.childNodes.forEach(function(n){var g=n.nodeType===1&&n.hasAttribute('data-g');n.textContent.split(/\s+/).filter(Boolean).forEach(function(w){out+='<span class="sw'+(g?' g':'')+'">'+w+'</span> ';});});
+  st.innerHTML=out; var sws=st.querySelectorAll('.sw');
+
+  /* loader out */
+  function start(){
+    var ld=document.getElementById('loader'); if(!ld)return;
+    ld.classList.add('out'); document.body.classList.remove('loading');
+    setTimeout(function(){document.body.classList.add('ready');},250);
+    setTimeout(function(){ld.remove();},1300);
+  }
+  var t0=Date.now();
+  function done(){setTimeout(start,reduce?0:Math.max(0,(window.innerWidth<620?1300:1900)-(Date.now()-t0)));}
+  if(document.readyState==='complete')done();else window.addEventListener('load',done);
+  setTimeout(start,4500);
+
+  /* reveal */
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal,.reveal-x').forEach(function(el){io.observe(el);});
+
+  /* compare slider */
+  var cmp=document.getElementById('compare'), dragging=false, touched=false;
+  function setPos(x){var r=cmp.getBoundingClientRect();var p=Math.min(97,Math.max(3,(x-r.left)/r.width*100));cmp.style.setProperty('--pos',p+'%');}
+  cmp.addEventListener('pointerdown',function(e){dragging=true;touched=true;setPos(e.clientX);cmp.setPointerCapture(e.pointerId);});
+  cmp.addEventListener('pointermove',function(e){if(dragging)setPos(e.clientX);});
+  cmp.addEventListener('pointerup',function(){dragging=false;});
+  /* auto-demo once visible */
+  var cio=new IntersectionObserver(function(es){if(es[0].isIntersecting&&!reduce){cio.disconnect();var t=0;(function anim(){if(touched)return;t+=0.012;var p=50+Math.sin(t*Math.PI*2)*32*Math.max(0,1-t/2.2);cmp.style.setProperty('--pos',p+'%');if(t<2.2)requestAnimationFrame(anim);})();}},{threshold:.5});
+  cio.observe(cmp);
+
+  /* scroll */
+  var nav=document.getElementById('nav'), prog=document.getElementById('progress'), heroArt=document.getElementById('heroArt'),
+      steps=document.getElementById('steps'), fill=document.getElementById('stepsFill'), stepEls=steps.querySelectorAll('.step'), lastY=0, ticking=false;
+  function onScroll(){
+    var y=window.scrollY, vh=window.innerHeight, dh=document.documentElement.scrollHeight-vh;
+    prog.style.transform='scaleX('+(dh>0?y/dh:0)+')';
+    nav.classList.toggle('scrolled',y>20);
+    nav.classList.toggle('hide',y>lastY&&y>400); lastY=y;
+    if(!reduce&&window.innerWidth>620&&y<vh*1.2) heroArt.style.transform='translateY('+(y*0.12)+'px)';
+    var r=st.getBoundingClientRect(), p=Math.min(1,Math.max(0,(vh*0.85-r.top)/(r.height+vh*0.35))), n=Math.round(p*sws.length);
+    sws.forEach(function(s,i){s.classList.toggle('lit',i<n);});
+    var sr=steps.getBoundingClientRect(), sp=Math.min(1,Math.max(0,(vh*0.6-sr.top)/sr.height));
+    fill.style.transform='scaleY('+sp+')';
+    stepEls.forEach(function(s){s.classList.toggle('on',s.getBoundingClientRect().top<vh*0.6);});
+    ticking=false;
+  }
+  window.addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(onScroll);ticking=true;}},{passive:true});
+  window.addEventListener('resize',onScroll); onScroll();
+
+  if(reduce||!window.matchMedia('(hover:hover)').matches)return;
+  /* cursor glow */
+  var glow=document.getElementById('glow'),gx=0,gy=0,cx=0,cy=0;
+  window.addEventListener('mousemove',function(e){gx=e.clientX;gy=e.clientY;});
+  (function loop(){cx+=(gx-cx)*.12;cy+=(gy-cy)*.12;glow.style.transform='translate('+(cx-260)+'px,'+(cy-260)+'px)';requestAnimationFrame(loop);})();
+  /* card spotlight + tilt */
+  document.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('mousemove',function(e){var b=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-b.left)+'px');c.style.setProperty('--my',(e.clientY-b.top)+'px');});
+  });
+  /* magnetic */
+  document.querySelectorAll('.magnetic').forEach(function(b){
+    b.addEventListener('mousemove',function(e){var r=b.getBoundingClientRect();b.style.transform='translate('+(e.clientX-r.left-r.width/2)*.18+'px,'+(e.clientY-r.top-r.height/2)*.25+'px)';});
+    b.addEventListener('mouseleave',function(){b.style.transform='';});
+  });
+  /* hero art tilt */
+  var art=document.getElementById('heroSvg').firstChild;
+  window.addEventListener('mousemove',function(e){var x=e.clientX/window.innerWidth-.5,y=e.clientY/window.innerHeight-.5;art.style.transform='perspective(1200px) rotateY('+x*6+'deg) rotateX('+(-y*4)+'deg)';});
+})();
+</script>
+</body>
+</html>
